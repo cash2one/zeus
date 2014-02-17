@@ -1,0 +1,69 @@
+# -*- coding: utf-8 -*-
+
+from django.db import models
+
+class Ticket(models.Model):
+    class Meta:
+        db_table = 'ticket'
+
+    TYPES = (
+        (1, '重装系统'),
+        (2, '配件升级'),
+        (3, '服务器申请'),
+        (4, '设备维护'),
+        (5, '服务器更换机房'),
+        (6, '其他操作')
+     )
+
+    IDC = (
+        (1,'南汇机房'),
+        (2,'呼兰机房'),
+        (3,'其他')
+        )
+
+    RAIDS = (
+        (1,'RAID0'),
+        (2,'RAID1'),
+        (3,'RAID5'),
+        (4,'RAID10'),
+        (5,'RAID不做更改'),
+        (6,'不做RAID'),
+        (7,'其他')
+    )
+
+    id = models.IntegerField(primary_key=True)
+    type_id = models.IntegerField(choices=TYPES)
+    hostname_id = models.CharField(max_length=4)
+    ip = models.IPAddressField(max_length=30)
+    sn = models.CharField(max_length=10)
+    idc_id = models.IntegerField(choices=IDC)
+    rack = models.CharField(max_length=4)
+    raid_id = models.IntegerField(choices=RAIDS)
+    expected_time = models.DateTimeField()
+    detail = models.TextField()
+    create_time = models.DateTimeField()
+    update_time = models.DateTimeField()
+    
+class Resource(models.Model):
+    class Meta:
+        db_table = 'resource'
+    TYPES = (
+        (1,'内存'),
+        (2,'硬盘'),
+        (3,'网线'),
+        (4,'硬盘托架'),
+        (5,'其他')
+    )
+    id = models.IntegerField(primary_key=True)
+    type_id = models.IntegerField(choices=TYPES)
+    purchase_date = models.DateTimeField()
+    detail = models.TextField()
+
+class Process(models.Model):
+    class Meta:
+        db_table = 'process'
+    id = models.IntegerField(primary_key=True)
+    create_time = models.DateTimeField()
+    admin_name = models.CharField(max_length=30)
+    handle_name = models.CharField(max_length=30)
+    tail = models.TextField()

@@ -1,0 +1,184 @@
+
+{% extends "base.html" %}
+
+{% block content %} 
+
+
+ <style type="text/css">
+    input {
+     width:90px;
+     height:20px;
+     padding:1px 3px 1px 3px;
+     margin:0px;
+     border:none
+     
+
+}
+</style>
+<div class="container">
+  <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <ul class="nav">
+            <li><a href="/index/">Home</a></li>
+            <li><a href="/index/myapplication_1/">我的申请</a></li>
+            <li><a href="/index/review">审核</a></li>
+            <li class="active"> <a href="#">备件资源</a></li>
+            <li><a href="/index/post">申请须知</a></li>
+          </ul>
+        </div>
+      </div>
+  </div><!-- /.navbar -->
+                                                                                                                                                                     <!-- Jumbotron -->
+   <!--<div class="jumbotron">-->
+   <div class="tabbable"> <!-- Only required for left/right tabs -->
+   
+   <ul class="nav nav-tabs">
+      <li class="active"><a href="#tab1" data-toggle="tab">内存</a></li>
+      <li><a href="#tab2" data-toggle="tab">硬盘</a></li>
+      <li><a href="#tab3" data-toggle="tab">网线</a></li>
+      <li><a href="#tab4" data-toggle="tab">硬盘托架</a></li>
+   </ul>
+   <div class="tab-content">
+      <div class="tab-pane active" id="tab1">
+        <table class="table table-hover table-bordered" style="font-size:14px;">
+          <tr>
+     	      <td scope="col"><div align="center">内存生产商</td>
+     	      <td scope="col"><div align="center">数量</td>
+     	      <td scope="col"><div align="center">内存类型</td>
+	      <td scope="col"><div align="center">内存容量</td>
+     	      <td scope="col"><div align="center">工作频率</td>
+	      <td scope="col"><div align="center">内存校验</td>
+     	      <td scope="col"><div align="center">维护人</td>
+            <td scope="col"><div align="center">剩余可用</td>
+            <td scope="col"><div align="center">操作</td>
+          </tr>
+	{% for memory in memorys %}
+	<tr>
+	  <td><div align="center">{{ memory.brand }}</td>
+	  <td><div align="center">{{ memory.quantity }}</td>
+	  <td><div align="center">{{ memory.category }}</td>
+	  <td><div align="center">{{ memory.capacity }}</td>
+	  <td><div align="center">{{ memory.frequency }}</td>
+	  <td><div align="center">{{ memory.check }}</td>
+	  <td><div align="center">{{ memory.maintainer }}</td>
+	  <td><div align="center">{{ memory.available }}</td>		
+	  <td>
+		<a id="edit-memory" href="#{{ memory.id }}" role="button" class="btn" data-toggle="modal">编辑</a>
+	  </td>
+	</tr>
+	<div id="{{ memory.id }}" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-header">
+	    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	       <h3 id="myModalLabel">
+		      编辑内存信息
+	       </h3>
+	  </div>
+	  <form action="" method="POST" name="edit" onsubmit="return valid_form(this);">
+	  <div class="modal-body">
+	  <p>
+  	   内存生产商<input class="inputlen" type="text" name="brand" value="{{ memory.brand }}"><br/>
+  	   内存&nbsp;&nbsp;&nbsp;数量<input class="inputlen" type="text" name="quantity" value="{{ memory.quantity }}"><br/>
+  	   内存&nbsp;&nbsp;&nbsp;类型<input class="inputlen" type="text" name="category" value="{{ memory.category }}"><br/>
+  	   内存&nbsp;&nbsp;&nbsp;容量<input class="inputlen" type="text" name="capacity" value="{{ memory.capacity }}"><br/>
+  	   工作&nbsp;&nbsp;&nbsp;频率<input class="inputlen" type="text" name="frequency" value="{{ memory.frequency }}"><br/>
+  	   内存&nbsp;&nbsp;&nbsp;校验<input class="inputlen" type="text" name="check" value="{{ memory.check }}"><br/>
+  	   维&nbsp;&nbsp;&nbsp;护&nbsp;&nbsp;&nbsp;人<input class="inputlen" type="text" name="maintainer" value="{{ memory.maintainer }}"><br/>
+  	   剩余&nbsp;&nbsp;&nbsp;可用<input class="inputlen" type="text" name="available" value="{{ memory.available }}"><br/>
+       内存&nbsp;&nbsp;&nbsp;序号<input class="inputlen" type="text" name="memoryid" value="{{ memory.id }}" readonly><br/>
+  	   使用&nbsp;&nbsp;&nbsp;记录<textarea name="used_recorder" rows="4" cols="20">{{ memory.used_recorder }} </textarea>
+	  </p>
+  	  </div>
+  	  <div class="modal-footer">
+    	  <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+    	  <input type="submit" name="btnSubmit" id="btnSubmit" value="update" class="btn"  name="update">
+    	  <input type="submit" name="btnSubmit" id="btnSubmit" value="delete" class="btn"  name="delete">
+  	  </div>
+	  </form>
+	</div>	
+	{% endfor %}	
+      </table >
+
+
+	<div class="container">
+	<form action="" method="post" name="add" onsubmit="return valid_form(this);">
+	   <table class="table table-hover table-bordered" style="font-size:14px;width:1000;">
+	   <b>添加内存</b>
+	  <tr>
+  	    <td scope="col"><div align="center">内存生产商</td>
+            <td scope="col"><div align="center">数量</td>
+            <td scope="col"><div align="center">内存类型</td>
+            <td scope="col"><div align="center">内存容量</td>
+            <td scope="col"><div align="center">工作频率</td>
+            <td scope="col"><div align="center">内存校验</td>
+            <td scope="col"><div align="center">维护人</td>
+            <td scope="col"><div align="center">剩余可用</td>
+	  </tr>
+	  <tr>
+ <!--     <td><div align="center"><input style="width:80px;"  type="text" name="brand" id="brand"></td>-->
+      <td><div align="center"><input style="width:90px;height:20px;padding:1px 3px 1px 3px;margin:0px;border:none" type="text" name="brand" id="brand"></td>
+      <td><div align="center"><input style="width:90px;height:20px;padding:1px 3px 1px 3px;margin:0px;border:none" type="text" name="quantity" id="quantity"></td>
+      <td><div align="center"><input style="width:90px;height:20px;padding:1px 3px 1px 3px;margin:0px;border:none" type="text" name="category" id="category"></td> 
+      <td><div align="center"><input style="width:90px;height:20px;padding:1px 3px 1px 3px;margin:0px;border:none" type="text" name="capacity" id="capacity"></td>
+      <td><div align="center"><input style="width:90px;height:20px;padding:1px 3px 1px 3px;margin:0px;border:none" type="text" name="frequency" id="frequency"></td>
+      <td><div align="center"><input style="width:90px;height:20px;padding:1px 3px 1px 3px;margin:0px;border:none" type="text" name="check" id="check"></td>
+      <td><div align="center"><input style="width:90px;height:20px;padding:1px 3px 1px 3px;margin:0px;border:none" type="text" name="maintainer" id="maintainer"></td>
+      <td><div align="center"><input style="width:90px;height:20px;padding:1px 3px 1px 3px;margin:0px;border:none" type="text" name="available" id="available"></td>
+	 </tr>
+	</table>
+	  <p><input type="submit" name="btnSubmit" id="btnSubmit" value="add" class="btn">
+  </form>
+	</div>
+
+
+     </div>
+
+    <div class="tab-pane" id="tab2">
+       <form method="post">
+       <table class="table table-hover table-bordered" style="font-size:18px;">
+      <tr>
+        <td></td>
+        <th scope="col"><div align="center">容量</th>
+        <th scope="col"><div align="center">类型</th>
+        <th scope="col"><div align="center">频率</th>
+        <th scope="col"><div align="center">购买日期</th>
+        <th scope="col"><div align="center">维护人</th>
+        <th scope="col"><div align="center">目前剩余</th>
+      </tr>
+     <tr>
+        <td scope="row"><div align="center">DELL</td>
+        <td><input style="width:120px;height:20px;padding:1px 3px 1px 3px;margin:0px;border:none" type="text" name="dell容量" id="dell容量"></td>
+        <td><input style="width:120px;height:20px;padding:1px 3px 1px 3px;margin:0px;border:none" type="text" name="dell类型" id="dell类型"></td>
+        <td><input style="width:120px;height:20px;padding:1px 3px 1px 3px;margin:0px;border:none" type="text" name="dell频率" id="dell频率"></td>
+        <td><input style="width:120px;height:20px;padding:1px 3px 1px 3px;margin:0px;border:none" type="text" name="dell购买日期" id="dell购买日期"></td>
+        <td><input style="width:120px;height:20px;padding:1px 3px 1px 3px;margin:0px;border:none" type="text" name="dell维护人" id="dell维护人"></td>
+        <td><input style="width:120px;height:20px;padding:1px 3px 1px 3px;margin:0px;border:none" type="text" name="dell目前剩余" id="dell目前剩余"></td>
+      </tr>
+     </table>
+     <p><input type="button" name="btnSubmit" id="btnSubmit" value="add" class="btn">
+      </form>
+    </div>
+      <div class="tab-pane" id="tab3">
+      <p>网线</p>
+      </div>
+      <div class="tab-pane" id="tab4">
+      <p>硬盘托架</p>
+   
+    
+   </div>
+   </div>
+   <script src="http://code.jquery.com/jquery-latest.js"></script>
+   <script src="/static/js/resource.js"><script>
+   <script type="text/javascript">
+
+    $(function(){
+    $('#selfchart').click(function(){
+        var url = "/ajax/";
+        var data = {"hello" : "weiliu"}
+        $.post(url,data,function(result){
+            alert(result.lit);
+        }, "json");
+    });
+    });
+   </script>
+{% endblock %}

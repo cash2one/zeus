@@ -1,0 +1,30 @@
+<html>
+ <head>
+  <title>Hello world</title>
+  <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+ </head>
+ <body>
+   <form action="" method="post">
+     <select name="type_id">
+       <option value="1">重装系统</option>
+       <option value="2">配件升级</option>
+     </select>
+     <input type="text" name="os">
+     <input type="submit" value="提交">
+   </form>
+
+   <h1 id="myid">Hello everyone</h1>
+   <input type="button" value="red"
+          onclick="turn('red')">
+   <input type="button" value="blue"
+          onclick="turn('blue')">
+   <input type="button" value="black"
+          onclick="turn('black')">
+   <script type="text/javascript">
+   function turn(color) {
+     var target = document.getElementById('myid');
+     target.style.color=color;
+   }
+   </script>
+ </body>
+</html>

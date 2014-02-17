@@ -1,0 +1,10 @@
+*.pyc
+
+.project
+.classpath
+.buildpath
+.pydevproject
+.settings
+
+venv
+

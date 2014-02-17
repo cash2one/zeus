@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block content %}
+
+   <div class="container">
+     <div class="masthead">
+    <div class="navbar">
+     <div class="navbar-inner">
+      <div class="container">
+        <ul class="nav">
+         <li class="active"><a href="#">Home</a></li>
+         <li><a href="/index/application">我的申请</a></li>
+         <li><a href="#">审核</a></li>
+         <li><a href="/index/resource">备件资源</a></li>
+         <li><a href="#">申请须知</a></li>
+         </ul>
+     </div>
+    </div>
+    </div><!-- /.navbar -->
+   </div>
+  <div class="container">
+  <table class="table-striped table-hover " width="1000" border="0" align="center" cellpadding="4" cellspacing="1" bgcolor="white" >
+   <tr>
+   <td><div align="center">编号</div></td>
+   <td><div align="center">申请人</div></td>
+   <td><div align="center">申请类型</div></td>
+   <td><div align="center">机房</div></td>
+   <td><div align="center">创建时间</div></td>
+   <td><div align="center">期望完成时间</div></td>
+   <td><div align="center">完成时间</div></td>
+   <td><div align="center">状态</div></td>
+   <td><div align="center">详情</div></td>
+   </tr>
+   <tr> <td> </td></tr>
+  <!-- <div id="list" class="pagination pagination-right  pagination-small">
+    <li class="active"><a href="#">1</a>-->
+    {% for item in items %}
+   <tr>
+   <td ><div align="center"><a href="#">{{forloop.counter}}</a></td>
+   <!--<td ><div align="center"><a href="#">{{ticket.id}}</a></td>-->
+   <td><div align="center">{{ticket.user.chinese_name}}</div></td>
+   <td><div align="center">{{item.type_id}}</div></td>
+   <td><div align="center">{{ticket.idc_id}}</div></td>
+   <td><div align="center">{{item.label}}</div></td>
+   <td><div align="center">{{ticket.Expectation_time|date:"Y/m/d"}}</div></td>
+   <td><div align="center">{{ticket.update_time|date:"Y/m/d"}}</div></td>
+   <td><div align="center">操作中</div></td>
+  <!-- <td><div align="center"> <a href="#myModal" role="button" class="btn" data-toggle="modal"><i class="icon-fire"></i></a>-->
+   <td><div align="center"> <a href="#{{forloop.counter}}"  class="btn" data-toggle="modal"><i class="icon-fire"></i></a></div></td></tr>
+
+<div id="{{forloop.counter}}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="{{forloop.counter}}Label" aria-hidden="true">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+<h3 align="center" id="myModalLabel">Information</h3>
+</div>
+<div class="modal-body">
+
+<div class="modal-footer">
+<button class="btn  btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+<button class="btn btn-primary">Save changes</button>
+{% endfor %}
+</div>
+</div>
+</div>
+  </div>
+  </table>
+   <div id="pageDir" class="pagination pagination-right  pagination-small">
+    <ul>
+    <li><a href="#">Prev</a></li>
+    <li class="active"><a href="#">1</a></li>
+    <li><a href="/index/page2">2</a></li>
+    <li><a href="/index/page3">3</a></li>
+    <li><a href="/index/page4">4</a></li>
+   <li><a href="#">...</a></li>
+   <li><a href="/index/page2">Next</a></li>
+    </ul>
+   </div>
+{% endblock %}

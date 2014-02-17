@@ -1,0 +1,291 @@
+{% extends 'base.html' %} 
+{% block content %}
+
+ <div class="container">
+    <div class="masthead">
+     <div class="navbar">
+     <div class="navbar-inner">
+      <div class="container">
+        <ul class="nav">
+         <li><a href="/index/">Home</a></li>
+         <li class="active"><a href="#">我的申请</a></li>
+         <li><a href="/index/review">审核</a></li>
+         <li><a href="/index/resource">备件资源</a></li>
+         <li><a href="/index/post">申请须知</a></li>
+         </ul>
+       </div>
+      </div>
+    </div><!-- /.navbar -->
+   </div>
+{% for status in status %}
+    最新申请:
+   <div class="progress progress-striped active">
+
+      <a title="{{status.status}}"> <div class="bar" style="width:{{status.id_status}}%;"></div></a>
+
+      </div>
+{% endfor %}
+   <!--<div class="navbar-inner">-->
+   <ul class="nav">
+    <li><a href="/index/application">添加申请</a></li>
+    </ul>
+
+
+      <tr></tr>
+  <div class="accordion" id="accordion2">
+  <div class="accordion-group">
+  <div class="accordion-heading">
+  <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+  申请中的需求
+  </a>
+  </div>
+  <div id="collapseOne" class="accordion-body collapse">
+  <div class="accordion-inner">
+  <div class="table-striped">
+  <table  align="center" width="1000px" border="0" align="center" cellpadding="4" cellspacing="1">
+   <tr>
+    <td><div align="center">编号</div></td>
+    <td><div align="center">申请人</div></td>
+    <td><div align="center">申请类型</div></td>
+    <td><div align="center">机房</div></td>
+    <td><div align="center">创建时间</div></td>
+    <td><div align="center">期望完成时间</div></td>
+    <td><div align="center">完成时间</div></td>
+    <td><div align="center">状态</div></td>
+    <td><div align="center">详情</div></td>
+    </tr>
+  {% for ticket in running_tickets %}
+   <tr>
+   <td ><div align="center"><a href="#">{{forloop.counter}}</a></td>
+   <td><div align="center">{{ticket.user.chinese_name}}</div></td>
+   <td><div align="center">{{ticket.type_id}}</div></td>
+   <td><div align="center">{{ticket.idc_id}}</div></td>
+   <td><div align="center">{{ticket.create_time|date:"Y/m/d"}}</div></td>
+   <td><div align="center">{{ticket.Expectation_time|date:"Y/m/d"}}</div></td>
+    <td><div align="center">{{ticket.update_time|date:"Y/m/d"}}</div></td>
+    <td><div align="center">{{ticket.ticket_status.status}}</div></td>
+    <td><div align="center"><a href="#{{forloop.counter}}" role="button" class="btn" data-toggle="modal"><i class="icon-fire"></i></a></div></td>
+   </tr> 
+{% endfor %}
+ </table>
+{% for ticket in tickets %}
+<!---->
+<div id="{{forloop.counter}}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="{{forloop.counter}}Label" aria-hidden="true">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+<h4  id="{{forloop.counter}}Label">Information</h4>
+</div>
+<div class="modal-body">
+
+
+<table class="table-hover " width="1000" border="0" align="center" cellpadding="4" cellspacing="1" bgcolor="white" >
+<tr><td><b>系统编号:</b>{{forloop.counter}}</td>
+<td><b>申请人:</b>{{ticket.user.chinese_name}}</td></tr>
+<tr><td><b>申请类别:</b>{{ticket.type_id}}</div></td>
+<td ><b> 主机名:</b>{{ticket.hostname_id}}</td></tr>
+<tr><td><b>主机IP:</b>{{ticket.ip_list}}</td>
+<td><b>主机SN:</b>{{ticket.sn_id}}</td></tr>
+<tr><td><b>主机硬盘(G/number):</b>{{ticket.disk}}</td>
+<td><b>主机内存:</b>{{ticket.memory}}</td></tr>
+<tr><td><b>原主机owner:</b>{{ticket.owner_id}}</td>
+<td><b>当前主机owner/业务owner:</b>{{ticket.new_oner}}</tr>
+<tr><td><b>是否重装系统(1\0表示是\否):</b>{{ticket.os}}
+<td><b>重做RAID卡信息:</b>{{ticket.raid_id}}</td></tr>
+<tr><td><b>远程控制卡IP:</b>{{ticket.ip_rac_id}}</td>
+<td><b>服务器类型:</b>{{ticket.host_status}}</td></tr>
+<tr><td><b>报修类型:</b>{{ticket.variety}}</td>
+<td><b>所属机柜:</b>{{ticket.rack_id}}</td><tr>
+<tr><td><b>所属机房:</b>{{ticket.idc_id}}</td>
+<td><b>更换机房:</b>{{ticket.new_idc}}</td><tr>
+<tr><td><b>创建时间:</b>{{ticket.create_time|date:"Y/m/d"}}</td>
+<td><b>期望完成时间:</b>{{ticket.Expectation_time|date:"Y/m/d"}}</td></tr>
+<tr><td><b>完成时间:</b>{{ticket.update_time|date:"Y/m/d"}}</td>
+<td><b>需求状态:</b><td></tr>
+<tr><td><b>详情:</b>{{ticket.detail}}</td></tr>
+</table>
+</div>
+<div class="modal-footer">
+<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+<button class="btn btn-primary">Down load</button>
+</div>
+</div>
+
+{% endfor %}
+
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  
+  <div class="accordion" id="accordion2">
+  <div class="accordion-group">
+  <div class="accordion-heading">
+  <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+  已完成的需求
+  </a>
+  </div>
+  <div id="collapseTwo" class="accordion-body collapse">
+  <div class="accordion-inner">
+  <div class="table-striped">
+   <table  align="center" width="1000px" border="0" align="center" cellpadding="4" cellspacing="1">
+    <tr>
+     <td><div align="center">编号</div></td>
+     <td><div align="center">申请人</div></td>
+     <td><div align="center">申请类型</div></td>
+     <td><div align="center">机房</div></td>
+     <td><div align="center">创建时间</div></td>
+     <td><div align="center">期望完成时间</div></td>
+     <td><div align="center">完成时间</div></td>
+     <td><div align="center">状态</div></td>
+     <td><div align="center">详情</div></td>
+    </tr>
+    {% for ticket in finish_tickets %}
+     <tr>
+     <td ><div align="center"><a href="#">{{forloop.counter}}</a></td>
+     <td><div align="center">{{ticket.user.chinese_name}}</div></td>
+     <td><div align="center">{{ticket.type_id}}</div></td>
+     <td><div align="center">{{ticket.idc_id}}</div></td>
+     <td><div align="center">{{ticket.create_time|date:"Y/m/d"}}</div></td>
+     <td><div align="center">{{ticket.Expectation_time|date:"Y/m/d"}}</div></td>
+    <td><div align="center">{{ticket.update_time|date:"Y/m/d"}}</div></td>
+     <td><div align="center">已完成</div></td>
+    <td><div align="center"><a href="#{{forloop.counter}}" role="button" class="btn" data-toggle="modal"><i class="icon-fire"></i></a></div></td>
+      </tr> 
+{% endfor %}
+    </table>
+{% for ticket in tickets %}
+<!---->
+<div id="{{forloop.counter}}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="{{forloop.counter}}Label" aria-hidden="true">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+<h4  id="{{forloop.counter}}Label">Information</h4>
+</div>
+<div class="modal-body">
+
+
+<table class="table-hover " width="1000" border="0" align="center" cellpadding="4" cellspacing="1" bgcolor="white" >
+<tr><td><b>系统编号:</b>{{forloop.counter}}</td>
+<td><b>申请人:</b>{{ticket.user.chinese_name}}</td></tr>
+<tr><td><b>申请类别:</b>{{ticket.type_id}}</div></td>
+<td ><b> 主机名:</b>{{ticket.hostname_id}}</td></tr>
+<tr><td><b>主机IP:</b>{{ticket.ip_list}}</td>
+<td><b>主机SN:</b>{{ticket.sn_id}}</td></tr>
+<tr><td><b>主机硬盘(G/number):</b>{{ticket.disk}}</td>
+<td><b>主机内存:</b>{{ticket.memory}}</td></tr>
+<tr><td><b>原主机owner:</b>{{ticket.owner_id}}</td>
+<td><b>当前主机owner/业务owner:</b>{{ticket.new_oner}}</tr>
+<tr><td><b>是否重装系统(1\0表示是\否):</b>{{ticket.os}}
+<td><b>重做RAID卡信息:</b>{{ticket.raid_id}}</td></tr>
+<tr><td><b>远程控制卡IP:</b>{{ticket.ip_rac_id}}</td>
+<td><b>服务器类型:</b>{{ticket.host_status}}</td></tr>
+<tr><td><b>报修类型:</b>{{ticket.variety}}</td>
+<td><b>所属机柜:</b>{{ticket.rack_id}}</td><tr>
+<tr><td><b>所属机房:</b>{{ticket.idc_id}}</td>
+<td><b>更换机房:</b>{{ticket.new_idc}}</td><tr>
+<tr><td><b>创建时间:</b>{{ticket.create_time|date:"Y/m/d"}}</td>
+<td><b>期望完成时间:</b>{{ticket.Expectation_time|date:"Y/m/d"}}</td></tr>
+<tr><td><b>完成时间:</b>{{ticket.update_time|date:"Y/m/d"}}</td>
+<td><b>需求状态:</b><td></tr>
+<tr><td><b>详情:</b>{{ticket.detail}}</td></tr>
+</table>
+</div>
+<div class="modal-footer">
+<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+<button class="btn btn-primary">Down load</button>
+</div>
+</div>
+
+{% endfor %}
+
+  </div>
+  </div>
+  </div>
+  </div>
+ <div class="accordion" id="accordion2">
+  <div class="accordion-group">
+  <div class="accordion-heading">
+  <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
+  被驳回的需求
+  </a>
+  </div>
+  <div id="collapseThree" class="accordion-body collapse">
+  <div class="accordion-inner">
+  <div class="table-striped">
+  <table  align="center" width="1000px" border="0" align="center" cellpadding="4" cellspacing="1">
+  <tr>
+   <td><div align="center">编号</div></td>
+   <td><div align="center">申请人</div></td>
+   <td><div align="center">申请类型</div></td>
+   <td><div align="center">机房</div></td>
+   <td><div align="center">创建时间</div></td>
+   <td><div align="center">期望完成时间</div></td>
+   <td><div align="center">完成时间</div></td>
+   <td><div align="center">状态</div></td>
+   <td><div align="center">详情</div></td>
+   </tr>
+  {% for ticket in reject_tickets %}
+   <tr>
+   <td ><div align="center"><a href="#">{{forloop.counter}}</a></td>
+   <td><div align="center">{{ticket.user.chinese_name}}</div></td>
+   <td><div align="center">{{ticket.type_id}}</div></td>
+   <td><div align="center">{{ticket.idc_id}}</div></td>
+   <td><div align="center">{{ticket.create_time|date:"Y/m/d"}}</div></td>
+   <td><div align="center">{{ticket.Expectation_time|date:"Y/m/d"}}</div></td>
+   <td><div align="center">{{ticket.update_time|date:"Y/m/d"}}</div></td>
+   <td><div align="center">被驳回</div></td>
+   <td><div align="center"><a href="#{{forloop.counter}}" role="button" class="btn" data-toggle="modal"><i class="icon-fire"></i></a></div></td>
+                                       </tr> 
+{% endfor %}
+    </table>
+{% for ticket in tickets %}
+<!---->
+<div id="{{forloop.counter}}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="{{forloop.counter}}Label" aria-hidden="true">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+<h4  id="{{forloop.counter}}Label">Information</h4>
+</div>
+<div class="modal-body">
+
+
+<table class="table-hover " width="1000" border="0" align="center" cellpadding="4" cellspacing="1" bgcolor="white" >
+<tr><td><b>系统编号:</b>{{forloop.counter}}</td>
+<td><b>申请人:</b>{{ticket.user.chinese_name}}</td></tr>
+<tr><td><b>申请类别:</b>{{ticket.type_id}}</div></td>
+<td ><b> 主机名:</b>{{ticket.hostname_id}}</td></tr>
+<tr><td><b>主机IP:</b>{{ticket.ip_list}}</td>
+<td><b>主机SN:</b>{{ticket.sn_id}}</td></tr>
+<tr><td><b>主机硬盘(G/number):</b>{{ticket.disk}}</td>
+<td><b>主机内存:</b>{{ticket.memory}}</td></tr>
+<tr><td><b>原主机owner:</b>{{ticket.owner_id}}</td>
+<td><b>当前主机owner/业务owner:</b>{{ticket.new_oner}}</tr>
+<tr><td><b>是否重装系统(1\0表示是\否):</b>{{ticket.os}}
+<td><b>重做RAID卡信息:</b>{{ticket.raid_id}}</td></tr>
+<tr><td><b>远程控制卡IP:</b>{{ticket.ip_rac_id}}</td>
+<td><b>服务器类型:</b>{{ticket.host_status}}</td></tr>
+<tr><td><b>报修类型:</b>{{ticket.variety}}</td>
+<td><b>所属机柜:</b>{{ticket.rack_id}}</td><tr>
+<tr><td><b>所属机房:</b>{{ticket.idc_id}}</td>
+<td><b>更换机房:</b>{{ticket.new_idc}}</td><tr>
+<tr><td><b>创建时间:</b>{{ticket.create_time|date:"Y/m/d"}}</td>
+<td><b>期望完成时间:</b>{{ticket.Expectation_time|date:"Y/m/d"}}</td></tr>
+<tr><td><b>完成时间:</b>{{ticket.update_time|date:"Y/m/d"}}</td>
+<td><b>需求状态:</b><td></tr>
+<tr><td><b>详情:</b>{{ticket.detail}}</td></tr>
+</table>
+</div>
+<div class="modal-footer">
+<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+<button class="btn btn-primary">Down load</button>
+</div>
+</div>
+
+{% endfor %}
+
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+
+{% endblock %}

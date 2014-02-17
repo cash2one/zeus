@@ -1,0 +1,455 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style type="text/css">
+  input {
+    padding-top: 30px;
+    padding-bottom: 90px;
+    width:150px;
+}
+  
+  textarea {
+    width:567px;
+    height:100px;
+    border:1;
+      }
+/*  table {
+   align:center;
+   width:600px;
+   border:0;
+   cellpadding:4;
+   cells[acomg:1
+
+  }*/
+</style>
+ <div class="container">
+ <div class="masthead">
+ <div class="navbar">
+ <div class="navbar-inner">
+ <div class="container">
+  <ul class="nav">
+  <li><a href="/index/">Home</a></li>
+  <li class="active"><a href="#">我的申请</a></li>
+  <li><a href="/index/review">审核</a></li>
+  <li><a href="/index/resource">备件资源</a></li>
+  <li><a href="/index/post">申请须知</a></li>
+  </ul>
+  </div></div></div></div>
+<!--<div class="jumbotron">-->
+   <tr> </tr>
+   <div class="tabbable tabs-left"> <!-- Only required for left/right tabs -->
+   <ul class="nav nav-tabs">
+   <li class="active"><a href="#tab1" data-toggle="tab">备机申请</a></li>
+   <li><a href="#tab2" data-toggle="tab">服务器报修</a></li>
+   <li><a href="#tab3" data-toggle="tab">服务器更换机房</a></li>
+   <li><a href="#tab4" data-toggle="tab">配件升级</a></li>
+   <li><a href="#tab5" data-toggle="tab">系统重装</a></li>
+   <li><a href="#tab6" data-toggle="tab">监控更改</a></li>
+   </ul>
+   <div class="tab-content">
+   <div class="tab-pane active" id="tab1">
+   <form method="post" action="" name="tab1" onsubmit="return tab1_form(this);">
+   <table  align="center" width="600px" border="0" align="center" cellpadding="4" cellspacing="1">
+    <tr>
+
+    <td>主机:<input type="text" name="host" id="hostname1" value=""></td>
+
+    <td>IP:<input type="text" name="ip_list" id="ip1" value=""</td>
+    <td>IDC机房:<select name="idc" id="idc" >
+        <option value="idc_status">请选择机房</option>
+        <option value="idc10">IDC10</option>
+        <option value="idc20">IDC20</option></td>
+    </tr>
+    <tr>
+    <td>硬盘(G/N):<input type="text" name="disk"  id="disk1" placeholder="300G/8" value=""></td>
+    <td>内存:<input type="text" name="mem" id="mem1" ></td>
+    <td>系统<select name="os" id="os">
+       <option value="os_status" >请选择是否重装系统</option>
+       <option value="1">是</option>
+       <option value="0">否</option></td>
+    </tr>
+    <tr>
+       <td>用途:<input type="text" name="use"></td>
+        <div class="input-append date">
+       <td>期望完成时间:<input class="add-on" type="text" name="date" Boolean="false" id="dp1">
+       </td></div>
+       <td>RAID:<select name="raid" id="raid">
+       <option value="raid_status">请选择RIAD卡</option>
+       <option value="raid_0">RAID_0</option>
+       <option value="raid_1">RAID_1</option>
+       <option value="raid_5">RAID_5</option>
+       <option value="raid_10">RAID_10</option>
+       <option value="raid_50">RAID_50</option>
+       <option value="不做更改">保持不变</option></td>
+      </tr>
+    <tr>
+    <td colspan="3">需求详情:<textarea  cols="100" rows="10" name="textarea" placeholder="We need to be as detailed as possible demand..." ></textarea></td>
+    </tr>
+    <tr>
+      <td colspan="3" align="right">
+      <button type="submit" name="Submit" id="onsubmit" value="add1" class="btn btn-primary" >提交</button>&nbsp;&nbsp;&nbsp;
+    <!--<button type="submit" class="btn btn-primary" onclick="window.location='/index/application';">返回</button>-->
+      </td>
+    </tr>
+   </table>
+   </form>
+   </div>
+   <div class="tab-pane" id="tab2">
+   <form method="post" name="tab2" onsubmit="return tab2_form(this);">
+   <table  align="center" width="600px" border="0" align="center" cellpadding="4" cellspacing="1">
+    <tr>
+     <td>主机:<input type="text" name="host" id="hostname2"></td>
+     <td>IP:<input type="text" name="ip" id="ip2"></td>
+     <td>IDC机房:<select name="idc" id="idc">
+       <option value="idc_status">请选择机房</option>
+       <option value="idc10">IDC10</option>
+       <option value="idc20">IDC20</option></td>
+    </tr>
+    <tr>
+     <td>机柜位置:<input type="text" name="location1" id="location2"></td>
+     <td>SN:<input type="text" name="sn" id="sn2"></td>
+     <td>服务器类型:<select name="variety" id="variety">
+     <option value="host_status">请选择机器类型</option>
+     <option value="服务器">服务器</option>
+     <option value="存储器">存储器</option>
+     <option value="网络设备">网络设备</option>
+     </td>
+    </tr>
+    <tr>
+    <td>期望完成时间:<input class="add-on" type="text" name="date" id="dp2"></td>
+     <td></td>
+    <td>报修类型:<select name="host_status" id="host_status">
+    <option value="host_status">请选择报修类型</option>
+    <option value="硬盘">硬盘</option>
+    <option value="主板">主板</option>
+    <option value="网卡">网卡</option>
+    <option value="other">其他</option>
+    </tr>
+   <tr>
+    <td colspan="3">需求详情:<textarea  cols="100" rows="10" name="textarea" placeholder="We need to be as detailed as possible demand..." ></textarea></td>
+   </tr>
+   <tr>
+   <td colspan="3" align="right">
+   <button type="submit" name="Submit" id="onsubmit" value="add2" class="btn btn-primary">提交</button>&nbsp;&nbsp;&nbsp;
+ <!--  <button type="submit" name="Submit" id="onsubmit" class="btn btn-primary" onclick="window.location='/index/application';">返回</button>-->
+   </tr>
+   </table>
+   </form>
+   </div>
+
+   <div class="tab-pane" id="tab3">
+   <form method="post" name="tab3" onsubmit="return tab3_form(this);">
+   <table  align="center" width="600px" border="0" align="center" cellpadding="4" cellspacing="1">
+    <tr>
+    <td>主机:<input type="text" name="host" id="hostname3"></td>
+    <td>IP:<input type="text" name="ip" id="ip3" ></td>
+    <td>原机房:<select name="old_idc" id="old_idc">
+      <option value="idc_status">请选择机房</option>
+      <option value="idc10">IDC10</option>
+      <option value="idc20">IDC20</option></td>
+    </tr>
+    <tr>
+     <td>原机器owner:<input type="text" name="old_owner" id="old_owner3"></td>
+     <td>当前机器owner:<input type="text" name="now_owner"></td>
+     <td>搬至机房:<select name="now_idc" id="now_idc">
+      <option value="idc_status">请选择机房</option>
+      <option value="idc10">IDC10</option>
+      <option value="idc20">IDC20</option></td>
+    </tr>
+    <tr>
+    <td>期望完成时间:<input class="add-on" type="text" name="date" id="dp3"></td>
+    </td>
+    <td></td>
+    <td>系统:<select name="os" id="os">
+     <option value="choice">是否重装系统</option>
+     <option value="1">是</option>
+     <option value="0">否</option></td>
+     </tr>
+    <tr>
+    <td colspan="3">需求详情:<textarea cols="100" rows="10" name="textarea" placeholder="We need to be as detailed as possible demand..." ></textarea></td>
+   </tr>
+  
+ 
+   <tr>
+    <td colspan="3" align="right">
+    <button type="submit" name="Submit" id="onsubmit" value="add3" class="btn btn-primary">提交</button>&nbsp;&nbsp;&nbsp;
+  <!--  <button type="submit" name="Submit" id="onsubmit" class="btn btn-primary" onclick="window.location='/index/application';">返回</button>-->
+
+   </tr>
+  </table>
+  </form>
+  </div>
+  <div class="tab-pane " id="tab4">
+   <form method="post" name="tab4" onsubmit="return tab4_form(this);">
+   <table  align="center" width="600px" border="0" align="center" cellpadding="4" cellspacing="1">
+   </tr>
+    <td>主机:<input type="text" name="host"id="hostname4" ></td>
+    <td>IP:<input type="text" name="ip" id="ip4"></td>
+    <td>系统<select name="os" id="os">
+     <option value="choice">是否重装系统</option>
+     <option value="1">是</option>
+     <option value="0">否</option></td>
+   </tr> 
+   <tr>
+    <td>机器owner:<input type="text" name="owner" id="old_owner4" ></td>
+    <td>期望完成时间:<input class="add-on" type="text" name="date" id="dp4"></td>
+    
+    <td>硬件升级类型:<select name="resource" id="resource">
+      <option value="resource_status">请选择硬件</option>
+      <option value="内存">内存</option>
+      <option value="硬盘">硬盘</option></td>
+   </tr>
+   <tr>
+   
+   <td>所属机柜:<input type="text" name="location1" id="location4"></td>
+   <td></td>
+   <td>机器归属机房:<select name="idc" id="idc">
+     <option value="choice">请选择机房</option>
+     <option value="idc10">idc10</option>
+     <option value="idc20">idc20</option></td>
+   </tr>
+   <tr>
+     <td colspan="3">需求详情:<textarea cols="100" rows="10" name="textarea"placeholder="We need to be as detailed as possible demand..." ></textarea></td>
+    </tr>
+    <tr>
+     <td colspan="3" align="right">
+     <button type="submit" name="Submit" id="onsubmit" value="add4" class="btn btn-primary">提交</button>&nbsp;&nbsp;&nbsp;
+    <!-- <button type="submit" name="Submit" id="onsubmit" class="btn btn-primary" onclick="window.location='/index/application';">返回</button>-->
+   </tr>
+   </table>
+   </form>
+  </div>
+  <div class="tab-pane" id="tab5">
+   <form method="post" name="tab5" onsubmit="return tab5_form(this);">
+   <table  align="center" width="600px" border="0" align="center" cellpadding="4" cellspacing="1">
+   <tr>
+   <td>主机:<input type="text" name="host" id="hostname5"></td>
+   <td>IP:<input type="text"  name="ip" id="ip5"></td>
+   <td>所属机房:<select name="idc" id="idc">
+     <option value="idc_status">请选择机房</option>
+     <option value="idc10">IDC10</option>
+     <option value="idc20">IDC20</option><td>
+   </tr>
+   <tr>
+    <td>机器owner:<input type="text"  name="owner" id="old_owner5"></td>
+    <td>远程控制卡IP:<input type="text" name="ra_ip" id="rac_ip5"></td>
+    <td>RIAD:<select name="raid" id="raid">
+      <option value="raid_status">请选择RIAD卡</option>
+      <option value="raid_0">RAID_0</option>
+      <option value="raid_1">RAID_1</option>
+      <option value="raid_5">RAID_5</option>
+      <option value="raid_10">RAID_10</option>
+      <option value="raid_50">RAID_50</option>
+      <option value="no_raid">保持不变</option></td>
+   </tr>
+   <tr>
+   <td>期望完成时间:<input class="add-on" type="text" name="date" id="dp5"></td>
+   <td></td>
+   <td></td>
+   </tr>
+   <tr>
+   <td colspan="3">需求详情:<textarea cols="100" rows="10" name="textarea" placeholder="We need to be as detailed as possible demand..." ></textarea></td>
+   </tr>
+   <tr>
+   <td colspan="3" align="right">
+   <button type="submit" name="Submit" value="add5" id="onsubmit" class="btn btn-primary">提交</button>&nbsp;&nbsp;&nbsp;
+<!--   <button type="submit" name="Submit" id="onsubmit" class="btn btn-primary" onclick="window.location='/index/application';">返回</button>-->
+   </tr>
+   </table>
+   </form>
+   </div>
+   
+  <div class="tab-pane" id="tab6">
+   <form method="post" name="tab6" onsubmit="return tab6_form(this);">
+   <table  align="center" width="600px" border="0" align="center" cellpadding="4" cellspacing="1">
+   <tr>
+   <td>主机:<input type="text" name="host" id="hostname6"></td>
+   <td>IP:<input type="text" name="ip" id="ip6"></td>
+   <td>所属监控系统:<select name="monitor" id="monitor">
+    <option value="monitor_location">请选择</option>
+    <option value="nagios10">nagios10</option>
+    <option value="zabbix10">zabbix10</option>
+    <option value="nagios20">nagios20</option>
+    <option value="zabbix20">zabbix20</option></td>
+   </tr>
+   <tr>
+   <td>机器owner:<input type="text" name="owner" id="old_owner6"></td>
+   <td>业务owner:<input type="text" name="business" placeholder="接警人" ></td>
+   <td>需求类别:<select name="list" id="list">
+    <option value="mon_status">请选择需求</option>
+    <option value="add_monitor">添加监控</option>
+    <option value="del_monitor">去除监控</option></td>
+   </tr>
+   <tr>
+   <td>期望完成时间:<input class="add-on" type="text" name="date" id="dp6"></td>
+   <td></td>
+   <td>所属机房:<select name="idc" id="idc">
+     <option value="idc_status">请选择机房</option>
+     <option value="idc10">IDC10</option>
+     <option value="idc20">IDC20</option><td>
+   </tr>
+   <tr>
+   <td colspan="3">需求详情:<textarea cols="100" rows="10" name="textarea" placeholder="We need to be as detailed as possible demand..." ></textarea></td>
+   </tr>
+   <tr>
+    <td colspan="3" align="right">
+    <button type="submit" name="Submit" id="onsubmit" value="add6" class="btn btn-primary">提交</button>&nbsp;&nbsp;&nbsp;
+   <!-- <button type="submit" name="Submit" id="onsubmit" class="btn btn-primary" onclick="window.location='/index/application';">返回</button>-->  
+    </tr>
+    </table>
+    </form>
+    </div>
+    </div>
+    </div>
+   
+
+ <!-- Placed at the end of the document so the pages load faster -->
+<script src="/static/js/jquery-1.10.1.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/bootstrap-datepicker.js"><script>
+<script src="/static/js/ajax.js"><script>
+<script type="text/javascript" src="/static/js/bootstrap-datepicker.js"></script>
+ <script type="text/javascript">
+  $('#dp1').datepicker({
+    format:'yyyy-mm-dd'
+              });
+ $('#dp2').datepicker({
+    format:'yyyy-mm-dd'
+    })
+
+ $('#dp3').datepicker({
+             
+    format:'yyyy-mm-dd' })
+ $('#dp4').datepicker({
+    format:'yyyy-mm-dd' })
+ $('#dp5').datepicker({
+    format:'yyyy-mm-dd' })
+ $('#dp6').datepicker({
+    format:'yyyy-mm-dd' })
+</script>
+<script type="text/javascript">
+//$('#hostname1').focus(function(){
+//    $(this).bind("keyup",function(){
+//        alert(2);
+//            });
+//    })
+$('#hostname1').change(function() {
+     var inputValue = $("#hostname1").val();
+
+     $.ajax({
+          type: "POST",
+          dataType: "json",
+          url: "/index/ajax",
+          data:"hostname="+$("#hostname1").val(),
+          cache: false,
+          async: false,
+          success: function(result){
+          $('#disk1').val(result.hd);
+          $('#mem1') .val(result.mem);
+          $('#ip1').val(result.ip);
+          },
+          error:function(result){
+              alert("～忽悠我呢，填的是zeus内的主机名吗～");  
+               }
+       });
+     });
+$('#hostname2').change(function() {
+     var inputValue = $("#hostname2").val();
+     $.ajax({
+          type: "POST",
+          dataType: "json",
+          url: "/index/ajax",
+          data:"hostname="+$("#hostname2").val(),
+          cache: false,
+          async: false,
+          success: function(result){
+        
+          $('#location2').val(result.location);
+          $('#sn2') .val(result.sn);
+          $('#ip2').val(result.ip);
+          },
+         error:function(result){
+            alert("～忽悠我呢，填的是zeus内的主机名吗～");  
+            }
+        });
+     });
+$('#hostname3').change(function() {
+    var inputValue = $("#hostname3").val();
+    $.ajax({
+         type: "POST",
+         dataType: "json",
+         url: "/index/ajax",
+         data:"hostname="+$("#hostname3").val(),
+         cache: false,
+         async: false,
+         success: function(result){
+         $('#ip3').val(result.ip);
+         $('#old_owner3').val(result.owner);
+         },
+         error:function(result){
+            alert("～忽悠我呢，填的是zeus内的主机名吗～");  
+            }
+         });
+});
+$('#hostname4').change(function() {
+    var inputValue = $("#hostname4").val();
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: "/index/ajax",
+        data:"hostname="+$("#hostname4").val(),
+        cache: false,
+        async: false,
+        success: function(result){
+        $('#ip4').val(result.ip);
+        $('#old_owner4').val(result.owner);
+        $('#location4').val(result.location)
+        },
+        error:function(result){
+           alert("～忽悠我呢，填的是zeus内的主机名吗～");  
+             }
+        });
+    });
+$('#hostname5').change(function() {
+    var inputValue = $("#hostname5").val();
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: "/index/ajax",
+        data:"hostname="+$("#hostname5").val(),
+        cache: false,
+        async: false,
+        success: function(result){
+        $('#ip5').val(result.ip);
+        $('#old_owner5').val(result.owner);
+        $('#rac_ip5').val(result.rac);
+         },
+        error:function(result){
+            alert("～忽悠我呢，填的是zeus内的主机名吗～");  
+          }
+       });
+     });
+
+$('#hostname6').change(function() {
+    var inputValue = $("#hostname6").val();
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: "/index/ajax",
+        data:"hostname="+$("#hostname6").val(),
+        cache: false,
+        async: false,
+        success: function(result){
+        $('#ip6').val(result.ip);
+        $('#old_owner6').val(result.owner);
+        $('#rac_ip6').val(result.rac);
+        },
+        error:function(result){
+          alert("～曾经有一份机会放在你的面前，但是你没有珍惜，好吧，那么我在给你一次机会，填对主机名吧，小伙伴～");  
+        }
+        });
+     
+    });
+
+</script>
+{% endblock %}

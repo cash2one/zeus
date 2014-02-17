@@ -1,0 +1,7 @@
+<uwsgi>
+	<socket>:8080</socket>
+	<chdir>/var/www/html/zeus/zeus_v2/zeus</chdir>
+	<module>django_wsgi</module>
+	<processes>4</processes>
+	<daemonize>uwsgi.log</daemonize>
+</uwsgi>

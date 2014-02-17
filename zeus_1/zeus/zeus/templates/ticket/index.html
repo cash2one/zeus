@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<table class="table table-condensed table-striped table-hover">
+  <tr>
+    <th>编号</th>
+    <th>需求类型</th>
+    <th>创建时间</th>
+    <th>操作</th>
+  </tr>
+  {% for ticket in tickets %}
+  <tr>
+    <td>{{ ticket.id }}</td>
+    <td>{{ ticket.type }}</td>
+    <td>{{ ticket.create_time }}</td>
+    <td>
+      <a href="/ticket/edit/{{ ticket.id }}/"><i class="icon icon-edit"></i></a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+ <a href="/ticket/add/" class="btn btn-primary">新增需求</a>
+
+{% endblock %}
